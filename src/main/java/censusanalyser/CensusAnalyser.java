@@ -62,6 +62,9 @@ public class CensusAnalyser {
             throw new CensusAnalyserException(e.getMessage(), CensusAnalyserException.ExceptionType.UNABLE_TO_PARSE);
         }
     }
-
-    
+    private <T> int getCount(Iterator<T> iterator) {
+        Iterable<T> iterable=() -> iterator;
+        int numOfEntries=(int)StreamSupport.stream(iterable.spliterator(),false).count();
+        return numOfEntries;
+    }
 }
