@@ -1,5 +1,6 @@
 package censusanalyser;
-
+import com.bl.csvbuilder.CsvFileBuilderException;
+import com.bl.csvbuilder.IcsvBuilder;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 
@@ -21,7 +22,7 @@ public class CensusAnalyser {
         } catch (IOException e) {
             throw new CensusAnalyserException(e.getMessage(),
                     CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
-        }catch (RuntimeException e){
+        }catch (RuntimeException | CsvFileBuilderException e){
             if (e.getMessage().contains("header!"));
             throw new CensusAnalyserException(e.getMessage(),CensusAnalyserException.ExceptionType.INVALID_FILE_HEADER);
         }
@@ -37,7 +38,7 @@ public class CensusAnalyser {
         catch (IOException e){
             throw new CensusAnalyserException(e.getMessage(),
                     CensusAnalyserException.ExceptionType.STATE_CODE_FILE_PROBLEM);
-        }catch (RuntimeException e){
+        }catch (RuntimeException | CsvFileBuilderException e){
             if (e.getMessage().contains("header!"));
             throw new CensusAnalyserException(e.getMessage(),CensusAnalyserException.ExceptionType.INVALID_STATE_CODE_FILE_HEADER);
         }
