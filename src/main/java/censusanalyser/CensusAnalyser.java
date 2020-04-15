@@ -119,6 +119,18 @@ public class CensusAnalyser {
             return toJson;
     }
 
+    public String getAreaWiseSortedCensusData(String csvFilePath)throws CensusAnalyserException {
+        loadIndiaCensusData(csvFilePath);
+        if (csvFileList==null || csvFileList.size()==0){
+            throw new CensusAnalyserException("NO_CENSUS_DATA",CensusAnalyserException.ExceptionType.NO_CENSUS_DATA);
+        }
+        Comparator<CensusDAO> censusCSVComparator=Comparator.comparing(census->census.getAreaInSqKm());
+        this.sort(censusCSVComparator);
+        Collections.reverse(csvFileList);
+        String toJson=new Gson().toJson(csvFileList);
+        return toJson;
+    }
+
     private  void sort(Comparator<CensusDAO> censusCSVComparator) {
         for (int i = 0; i < csvFileList.size(); i++) {
             for (int j = 0; j < csvFileList.size() - i - 1; j++) {
