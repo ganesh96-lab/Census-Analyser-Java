@@ -147,7 +147,6 @@ public class CensusAnalyserTest {
         }
     }
 
-
     @Test
     public void givenIndianStateCodeCSV_withRandomStateNames_ShouldReturnInStateNameSortedOrder() {
         try {
