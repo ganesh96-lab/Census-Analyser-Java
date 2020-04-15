@@ -8,7 +8,8 @@ public class CensusAnalyserException extends Exception {
         INVALID_STATE_CODE_FILE_HEADER,
         WRONG_FILE_TYPE,
         UNABLE_TO_PARSE,
-        NO_CENSUS_DATA;
+        NO_CENSUS_DATA,
+        WRONG_FILE_DELIMITER;
     }
 
     ExceptionType type;
