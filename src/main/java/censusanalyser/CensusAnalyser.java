@@ -34,7 +34,7 @@ public class CensusAnalyser {
         this.checkValidCSVFile(csvFilePath);
         try (Reader reader=Files.newBufferedReader(Paths.get(csvFilePath))){
             IcsvBuilder csvBuilder =CSVBuilderFactory.createCSVBuilder();
-            List<IndiaStateCodeCSV> csvFileList = csvBuilder.getCSVFileList(reader,IndiaStateCodeCSV.class);
+            csvFileList = csvBuilder.getCSVFileList(reader,IndiaStateCodeCSV.class);
             return csvFileList.size();
         }
         catch (IOException e){
@@ -70,7 +70,7 @@ public class CensusAnalyser {
     }
 
     public String getStateWiseSortedCensusData(String csvFilePath)throws CensusAnalyserException {
-        loadIndiaCensusData(csvFilePath);
+
         if (csvFilePath == "./src/test/resources/IndiaStateCensusData.csv"){
             loadIndiaCensusData(csvFilePath);
             if (csvFileList==null || csvFileList.size()==0){
@@ -100,7 +100,6 @@ public class CensusAnalyser {
                     csvFileList.set(j, census2);
                     csvFileList.set(j + 1, census1);
                 }
-
             }
         }
     }
