@@ -199,4 +199,17 @@ public class CensusAnalyserTest {
             e.printStackTrace();
         }
     }
+
+   @Test
+    public void givenUSCensusData_withRandomStateNames_ShouldReturnInStateNamePopulationWiseSortedOrder() {
+        try {
+            CensusAnalyser censusAnalyser = new CensusAnalyser();
+            String PopulationWiseSortedCensusData = censusAnalyser.getPopulationWiseSortedCensusData(US_CENSUS_CSV_FILE_PATH);
+            System.out.println(PopulationWiseSortedCensusData);
+            USCensusCSV[] censusCSV = new Gson().fromJson(PopulationWiseSortedCensusData, USCensusCSV[].class);
+            Assert.assertEquals(4779736, censusCSV[0].getPopulation());
+        } catch (CensusAnalyserException e) {
+            Assert.assertEquals(CensusAnalyserException.ExceptionType.NO_US_CENSUS_DATA, e.type);
+        }
+    }
 }

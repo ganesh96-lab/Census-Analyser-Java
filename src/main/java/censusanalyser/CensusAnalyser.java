@@ -128,12 +128,21 @@ public class CensusAnalyser {
             String toJson=new Gson().toJson(csvFileList);
             return toJson;
         }
-        loadIndiaStateCodeData(csvFilePath);
-        if (csvFileList==null || csvFileList.size()==0){
-            throw new CensusAnalyserException("NO_CENSUS_DATA",CensusAnalyserException.ExceptionType.NO_CENSUS_DATA);
+        else if(csvFilePath == "./src/test/resources/IndiaStateCode.csv") {
+            loadIndiaStateCodeData(csvFilePath);
+            if (csvFileList == null || csvFileList.size() == 0) {
+                throw new CensusAnalyserException("NO_CENSUS_DATA", CensusAnalyserException.ExceptionType.NO_CENSUS_DATA);
+            }
+            Comparator<CensusDAO> censusComparator = Comparator.comparing(censusDAO -> censusDAO.getStateCode());
+            this.sort(censusComparator);
+            String toJson = new Gson().toJson(csvFileList);
+            return toJson;
         }
-        Comparator<CensusDAO> censusComparator=Comparator.comparing(censusDAO->censusDAO.getStateCode());
-        this.sort(censusComparator);
+        loadUSCensusData(csvFilePath);
+        if (csvFileList==null || csvFileList.size()==0){
+            throw new CensusAnalyserException("NO_US_CENSUS_DATA",CensusAnalyserException.ExceptionType.NO_US_CENSUS_DATA);
+        }Comparator<CensusDAO> censusUsComparator=Comparator.comparing(census->census.getPopulation());
+        this.sort(censusUsComparator);
         String toJson=new Gson().toJson(csvFileList);
         return toJson;
     }
