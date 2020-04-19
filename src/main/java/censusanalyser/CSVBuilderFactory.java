@@ -1,7 +1,11 @@
 package censusanalyser;
 
+
+/*import com.csvbuilder.IcsvBuilder;
+import com.csvbuilder.OpenCSVBuilder;*/
+
 public class CSVBuilderFactory {
-    public static OpenCSVBuilder createCSVBuilder(){
+    public static IcsvBuilder createCSVBuilder() {
         return new OpenCSVBuilder();
     }
 }
